@@ -65,6 +65,7 @@ const SearchBooks = () => {
   const handleSaveBook = async (bookId) => {
     // find the book in `searchedBooks` state by the matching id
     const newBook = searchedBooks.find((book) => book.bookId === bookId);
+    console.log(newBook);
 
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -75,12 +76,13 @@ const SearchBooks = () => {
 
     try {
       const { data } = await saveBook({
-        variables: { book: { ...newBook } },
+        variables: { bookData: { ...newBook } },
       });
 
       setSavedBookIds([...savedBookIds, newBook.bookId]);
 
     } catch (err) {
+
       console.error(err);
     }
   };
@@ -121,8 +123,8 @@ const SearchBooks = () => {
         <Row>
           {searchedBooks.map((book) => {
             return (
-              <Col md="4">
-                <Card key={book.bookId} border='dark'>
+              <Col key={book.bookId} md="4">
+                <Card  border='dark'>
                   {book.image ? (
                     <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' />
                   ) : null}
