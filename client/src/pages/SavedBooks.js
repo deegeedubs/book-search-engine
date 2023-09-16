@@ -19,8 +19,6 @@ const SavedBooks = () => {
 
   const userData = data?.me || {};
 
-  console.log(data);
-
   const [removeBook, {error}] = useMutation(REMOVE_BOOK)
 
   const handleDeleteBook = async (bookId) => {
@@ -30,10 +28,13 @@ const SavedBooks = () => {
       return false;
     }
 
+
     try {
       const { data } = await removeBook({
         variables: { bookId },
       });
+
+      console.log(data);
       removeBookId(bookId)
 
     } catch (err) {

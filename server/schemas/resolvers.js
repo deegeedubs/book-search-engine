@@ -7,7 +7,6 @@ const resolvers = {
     me: async (parent, args, context) => {
       if (context.user) {
         const user = await User.findOne({ _id: context.user._id });
-        console.log(user);
         return user;
       }
       throw new AuthenticationError('You need to be logged in!');
@@ -47,7 +46,6 @@ const resolvers = {
           { $push: { savedBooks:  bookData } },
           { new: true }
         );
-        console.log(updatedUser);
         return updatedUser;
       }
 
